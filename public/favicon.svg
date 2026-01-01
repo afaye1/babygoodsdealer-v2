@@ -1,10 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#8BA888"/>
-      <stop offset="100%" style="stop-color:#6B8E68"/>
+    <linearGradient id="sageGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8ba888"/>
+      <stop offset="100%" style="stop-color:#6d8b6a"/>
     </linearGradient>
   </defs>
-  <circle cx="50" cy="50" r="48" fill="url(#bg)"/>
-  <text x="50" y="65" text-anchor="middle" font-family="Georgia, serif" font-size="45" font-weight="bold" fill="white">B</text>
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="48" fill="url(#sageGradient)"/>
+  <!-- Baby onesie icon -->
+  <path d="M35 28 L42 22 L50 28 L58 22 L65 28 L62 35 L58 35 L58 65 C58 68 55 70 50 70 C45 70 42 68 42 65 L42 35 L38 35 Z" fill="#fef9f0" stroke="#d4dbc9" stroke-width="1.5"/>
+  <!-- Small heart decoration -->
+  <path d="M50 45 C48 42 44 42 44 46 C44 50 50 54 50 54 C50 54 56 50 56 46 C56 42 52 42 50 45" fill="#f3bdb5"/>
 </svg>

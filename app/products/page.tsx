@@ -7,20 +7,20 @@ import Footer from '@/components/Footer'
 import ProductCard from '@/components/ProductCard'
 import { ChevronDown, SlidersHorizontal, X, ChevronLeft, ChevronRight } from 'lucide-react'
 
-// Sample products data
+// Sample products data with real images
 const allProducts = [
-  { id: '1', name: 'Organic Cotton Swaddle Set', price: 48, originalPrice: 65, rating: 4.9, reviews: 128, image: '', category: 'Nursery', badge: 'Best Seller', colors: ['#f3bdb5', '#d4dbc9', '#fef9f0'] },
-  { id: '2', name: 'Wooden Stacking Rainbow', price: 35, rating: 4.8, reviews: 94, image: '', category: 'Toys', colors: ['#f2d68f', '#b5c2a4', '#ea9488'] },
-  { id: '3', name: 'Bamboo Feeding Set', price: 42, rating: 4.7, reviews: 76, image: '', category: 'Feeding', badge: 'New', colors: ['#d4dbc9', '#fef9f0'] },
-  { id: '4', name: 'Linen Crib Sheet', price: 58, rating: 4.9, reviews: 112, image: '', category: 'Nursery', colors: ['#f3bdb5', '#d4dbc9', '#f5d9ae'] },
-  { id: '5', name: 'Organic Baby Bodysuit Pack', price: 36, rating: 4.6, reviews: 89, image: '', category: 'Clothing', colors: ['#fef9f0', '#d4dbc9'] },
-  { id: '6', name: 'Wooden Rattle Set', price: 28, rating: 4.8, reviews: 67, image: '', category: 'Toys', badge: 'Sale' },
-  { id: '7', name: 'Muslin Burp Cloths (5-Pack)', price: 32, rating: 4.7, reviews: 145, image: '', category: 'Feeding' },
-  { id: '8', name: 'Organic Cotton Blanket', price: 55, rating: 4.9, reviews: 203, image: '', category: 'Nursery', badge: 'Best Seller' },
-  { id: '9', name: 'Baby Milestone Cards', price: 24, rating: 4.5, reviews: 56, image: '', category: 'Gifts' },
-  { id: '10', name: 'Teething Ring Set', price: 18, rating: 4.6, reviews: 78, image: '', category: 'Toys' },
-  { id: '11', name: 'Portable Diaper Caddy', price: 45, rating: 4.7, reviews: 92, image: '', category: 'Travel' },
-  { id: '12', name: 'Organic Baby Lotion', price: 22, rating: 4.8, reviews: 134, image: '', category: 'Care' },
+  { id: '1', name: 'Organic Cotton Swaddle Set', price: 48, originalPrice: 65, rating: 4.9, reviews: 128, image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&auto=format&fit=crop&q=80', category: 'Nursery', badge: 'Best Seller', colors: ['#f3bdb5', '#d4dbc9', '#fef9f0'] },
+  { id: '2', name: 'Wooden Stacking Rainbow', price: 35, rating: 4.8, reviews: 94, image: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600&auto=format&fit=crop&q=80', category: 'Toys', colors: ['#f2d68f', '#b5c2a4', '#ea9488'] },
+  { id: '3', name: 'Bamboo Feeding Set', price: 42, rating: 4.7, reviews: 76, image: 'https://images.unsplash.com/photo-1584839400972-24e0f9c3de94?w=600&auto=format&fit=crop&q=80', category: 'Feeding', badge: 'New', colors: ['#d4dbc9', '#fef9f0'] },
+  { id: '4', name: 'Linen Crib Sheet', price: 58, rating: 4.9, reviews: 112, image: 'https://images.unsplash.com/photo-1586105251261-72a756497a11?w=600&auto=format&fit=crop&q=80', category: 'Nursery', colors: ['#f3bdb5', '#d4dbc9', '#f5d9ae'] },
+  { id: '5', name: 'Organic Baby Bodysuit Pack', price: 36, rating: 4.6, reviews: 89, image: 'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=600&auto=format&fit=crop&q=80', category: 'Clothing', colors: ['#fef9f0', '#d4dbc9'] },
+  { id: '6', name: 'Wooden Rattle Set', price: 28, rating: 4.8, reviews: 67, image: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=600&auto=format&fit=crop&q=80', category: 'Toys', badge: 'Sale' },
+  { id: '7', name: 'Muslin Burp Cloths (5-Pack)', price: 32, rating: 4.7, reviews: 145, image: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=600&auto=format&fit=crop&q=80', category: 'Feeding' },
+  { id: '8', name: 'Organic Cotton Blanket', price: 55, rating: 4.9, reviews: 203, image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&auto=format&fit=crop&q=80', category: 'Nursery', badge: 'Best Seller' },
+  { id: '9', name: 'Baby Milestone Cards', price: 24, rating: 4.5, reviews: 56, image: 'https://images.unsplash.com/photo-1513884923967-4b182ef167ab?w=600&auto=format&fit=crop&q=80', category: 'Gifts' },
+  { id: '10', name: 'Teething Ring Set', price: 18, rating: 4.6, reviews: 78, image: 'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=600&auto=format&fit=crop&q=80', category: 'Toys' },
+  { id: '11', name: 'Portable Diaper Caddy', price: 45, rating: 4.7, reviews: 92, image: 'https://images.unsplash.com/photo-1591088398332-8a7791972843?w=600&auto=format&fit=crop&q=80', category: 'Travel' },
+  { id: '12', name: 'Organic Baby Lotion', price: 22, rating: 4.8, reviews: 134, image: 'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=600&auto=format&fit=crop&q=80', category: 'Care' },
 ]
 
 const categories = ['All', 'Nursery', 'Feeding', 'Clothing', 'Toys', 'Travel', 'Gifts', 'Care']

@@ -47,10 +47,10 @@ const product = {
     { name: 'Cream Cloud', value: '#fef9f0' },
   ],
   images: [
-    '/images/products/swaddle-1.jpg',
-    '/images/products/swaddle-2.jpg',
-    '/images/products/swaddle-3.jpg',
-    '/images/products/swaddle-4.jpg',
+    'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=800&auto=format&fit=crop&q=80',
+    'https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&auto=format&fit=crop&q=80',
   ],
   specifications: {
     Material: '100% Organic Cotton',
@@ -118,10 +118,12 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
               className="space-y-4"
             >
               {/* Main Image */}
-              <div className="aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-cream-100 to-sage-50 shadow-soft">
-                <div className="w-full h-full flex items-center justify-center">
-                  <span className="font-script text-5xl text-sage-300">{product.category}</span>
-                </div>
+              <div className="aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-cream-100 to-sage-50 shadow-soft relative">
+                <img
+                  src={product.images[selectedImage]}
+                  alt={`${product.name} - Image ${selectedImage + 1}`}
+                  className="w-full h-full object-cover transition-opacity duration-300"
+                />
               </div>
 
               {/* Thumbnail Gallery */}
@@ -136,9 +138,11 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                         : 'hover:opacity-80'
                     }`}
                   >
-                    <div className="w-full h-full flex items-center justify-center">
-                      <span className="font-script text-lg text-sage-300">{index + 1}</span>
-                    </div>
+                    <img
+                      src={image}
+                      alt={`${product.name} - Thumbnail ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
                   </button>
                 ))}
               </div>

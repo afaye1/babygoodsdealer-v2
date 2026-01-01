@@ -42,10 +42,18 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         {/* Product image */}
         <Link href={`/products/${product.id}`}>
           <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gradient-to-br from-cream-100 to-sage-50 card-lift">
-            {/* Placeholder gradient */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="font-script text-3xl text-sage-300">{product.category}</span>
-            </div>
+            {/* Product image or placeholder */}
+            {product.image ? (
+              <img
+                src={product.image}
+                alt={product.name}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="font-script text-3xl text-sage-300">{product.category}</span>
+              </div>
+            )}
 
             {/* Overlay */}
             <div className="absolute inset-0 bg-charcoal-900/0 group-hover:bg-charcoal-900/10 transition-colors duration-300" />

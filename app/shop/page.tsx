@@ -49,10 +49,10 @@ const collections = [
 
 // Featured products
 const featuredProducts = [
-  { id: '1', name: 'Organic Cotton Swaddle Set', price: 48, originalPrice: 65, rating: 4.9, reviews: 128, image: '', category: 'Nursery', badge: 'Best Seller', colors: ['#f3bdb5', '#d4dbc9', '#fef9f0'] },
-  { id: '2', name: 'Wooden Stacking Rainbow', price: 35, rating: 4.8, reviews: 94, image: '', category: 'Toys', colors: ['#f2d68f', '#b5c2a4', '#ea9488'] },
-  { id: '3', name: 'Bamboo Feeding Set', price: 42, rating: 4.7, reviews: 76, image: '', category: 'Feeding', badge: 'New', colors: ['#d4dbc9', '#fef9f0'] },
-  { id: '4', name: 'Linen Crib Sheet', price: 58, rating: 4.9, reviews: 112, image: '', category: 'Nursery', colors: ['#f3bdb5', '#d4dbc9', '#f5d9ae'] },
+  { id: '1', name: 'Organic Cotton Swaddle Set', price: 48, originalPrice: 65, rating: 4.9, reviews: 128, image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&auto=format&fit=crop&q=80', category: 'Nursery', badge: 'Best Seller', colors: ['#f3bdb5', '#d4dbc9', '#fef9f0'] },
+  { id: '2', name: 'Wooden Stacking Rainbow', price: 35, rating: 4.8, reviews: 94, image: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600&auto=format&fit=crop&q=80', category: 'Toys', colors: ['#f2d68f', '#b5c2a4', '#ea9488'] },
+  { id: '3', name: 'Bamboo Feeding Set', price: 42, rating: 4.7, reviews: 76, image: 'https://images.unsplash.com/photo-1584839400972-24e0f9c3de94?w=600&auto=format&fit=crop&q=80', category: 'Feeding', badge: 'New', colors: ['#d4dbc9', '#fef9f0'] },
+  { id: '4', name: 'Linen Crib Sheet', price: 58, rating: 4.9, reviews: 112, image: 'https://images.unsplash.com/photo-1586105251261-72a756497a11?w=600&auto=format&fit=crop&q=80', category: 'Nursery', colors: ['#f3bdb5', '#d4dbc9', '#f5d9ae'] },
 ]
 
 // Category quick links

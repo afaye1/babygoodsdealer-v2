@@ -125,20 +125,24 @@ export default function Testimonials() {
           </AnimatePresence>
 
           {/* Navigation */}
-          <div className="flex items-center justify-center gap-4 mt-8">
+          <div className="flex items-center justify-center gap-4 mt-8" role="group" aria-label="Testimonial navigation">
             <button
               onClick={prevTestimonial}
               className="w-12 h-12 bg-white rounded-full shadow-soft flex items-center justify-center hover:bg-sage-50 transition-colors"
+              aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-5 h-5 text-charcoal-600" />
             </button>
-            
+
             {/* Dots */}
-            <div className="flex items-center gap-2">
-              {testimonials.map((_, index) => (
+            <div className="flex items-center gap-2" role="tablist" aria-label="Testimonial slides">
+              {testimonials.map((testimonial, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentIndex(index)}
+                  role="tab"
+                  aria-selected={index === currentIndex}
+                  aria-label={`View testimonial from ${testimonial.name}`}
                   className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
                     index === currentIndex
                       ? 'w-8 bg-sage-400'
@@ -151,6 +155,7 @@ export default function Testimonials() {
             <button
               onClick={nextTestimonial}
               className="w-12 h-12 bg-white rounded-full shadow-soft flex items-center justify-center hover:bg-sage-50 transition-colors"
+              aria-label="Next testimonial"
             >
               <ChevronRight className="w-5 h-5 text-charcoal-600" />
             </button>

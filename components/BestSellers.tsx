@@ -175,10 +175,16 @@ export default function BestSellers({ title }: BestSellersProps) {
 
                     {/* Quick Actions */}
                     <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-300">
-                      <button className="w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-soft hover:bg-blush-50 transition-colors">
+                      <button
+                        className="w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-soft hover:bg-blush-50 transition-colors"
+                        aria-label={`Add ${product.name} to wishlist`}
+                      >
                         <Heart className="w-4 h-4 text-charcoal-600 hover:text-blush-500" />
                       </button>
-                      <button className="w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-soft hover:bg-sage-50 transition-colors">
+                      <button
+                        className="w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-soft hover:bg-sage-50 transition-colors"
+                        aria-label={`Quick add ${product.name} to cart`}
+                      >
                         <ShoppingBag className="w-4 h-4 text-charcoal-600 hover:text-sage-600" />
                       </button>
                     </div>

@@ -29,6 +29,7 @@ export default function Newsletter() {
           className="absolute bottom-0 right-0 w-64 h-64 text-sage-200/30"
           viewBox="0 0 200 200"
           fill="currentColor"
+          aria-hidden="true"
         >
           <path d="M42.7,-62.9C53.9,-54.7,60.3,-40.6,65.2,-26.1C70.1,-11.6,73.5,3.3,71.1,17.5C68.7,31.7,60.5,45.2,48.8,54.8C37.1,64.4,21.8,70.2,5.5,72.4C-10.8,74.6,-28.1,73.2,-42.3,65.6C-56.5,58,-67.6,44.2,-73.4,28.4C-79.2,12.6,-79.7,-5.2,-74.5,-21.2C-69.3,-37.2,-58.4,-51.4,-44.7,-58.9C-31,-66.4,-14.5,-67.2,0.7,-68.1C15.9,-69,31.5,-71.1,42.7,-62.9Z" transform="translate(100 100)" />
         </svg>
@@ -84,6 +85,7 @@ export default function Newsletter() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
+                aria-label="Email address for newsletter"
                 className="w-full px-6 py-4 bg-white rounded-full text-charcoal-800 placeholder:text-charcoal-400 focus:outline-none focus:ring-2 focus:ring-sage-400 shadow-soft transition-all"
                 required
               />

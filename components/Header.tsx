@@ -72,12 +72,19 @@ export default function Header() {
             {/* Right Actions */}
             <div className="flex items-center gap-3 sm:gap-4">
               {/* Search */}
-              <button className="p-2 hover:bg-sage-50 rounded-full transition-colors group">
+              <button
+                className="p-2 hover:bg-sage-50 rounded-full transition-colors group"
+                aria-label="Search products"
+              >
                 <Search className="w-5 h-5 text-charcoal-600 group-hover:text-sage-600 transition-colors" />
               </button>
 
               {/* Wishlist */}
-              <Link href="/wishlist" className="relative p-2 hover:bg-blush-50 rounded-full transition-colors group">
+              <Link
+                href="/wishlist"
+                className="relative p-2 hover:bg-blush-50 rounded-full transition-colors group"
+                aria-label={`Wishlist${wishlistCount > 0 ? ` (${wishlistCount} items)` : ''}`}
+              >
                 <Heart className="w-5 h-5 text-charcoal-600 group-hover:text-blush-500 transition-colors" />
                 {wishlistCount > 0 && (
                   <span className="absolute -top-1 -right-1 w-5 h-5 bg-blush-400 text-white text-2xs font-medium rounded-full flex items-center justify-center">
@@ -108,6 +115,8 @@ export default function Header() {
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="lg:hidden p-2 hover:bg-sage-50 rounded-full transition-colors"
+                aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+                aria-expanded={isMobileMenuOpen}
               >
                 {isMobileMenuOpen ? (
                   <X className="w-6 h-6 text-charcoal-700" />

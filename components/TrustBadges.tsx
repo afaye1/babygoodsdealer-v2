@@ -1,93 +1,96 @@
-'use client'
+'use client';
 
-import { motion } from 'framer-motion'
-import { Truck, Shield, Leaf, RefreshCw, Award, Heart } from 'lucide-react'
+import { motion } from 'framer-motion';
+import { Truck, RefreshCw, ShieldCheck, Headphones } from 'lucide-react';
 
 const badges = [
   {
     icon: Truck,
     title: 'Free Shipping',
     description: 'On orders over $75',
-    color: 'sage',
-  },
-  {
-    icon: Shield,
-    title: 'Safe & Tested',
-    description: 'CPSC certified products',
-    color: 'blush',
-  },
-  {
-    icon: Leaf,
-    title: '100% Organic',
-    description: 'Natural materials only',
-    color: 'sage',
+    color: 'bg-sage-100',
+    iconColor: 'text-sage-600',
   },
   {
     icon: RefreshCw,
-    title: 'Easy Returns',
-    description: '30-day return policy',
-    color: 'gold',
+    title: '30-Day Returns',
+    description: 'Hassle-free returns',
+    color: 'bg-blush-100',
+    iconColor: 'text-blush-500',
   },
   {
-    icon: Award,
-    title: 'Premium Quality',
-    description: 'Handpicked essentials',
-    color: 'blush',
+    icon: ShieldCheck,
+    title: 'Secure Checkout',
+    description: '100% protected payment',
+    color: 'bg-gold-100',
+    iconColor: 'text-gold-600',
   },
   {
-    icon: Heart,
-    title: 'Made with Love',
-    description: 'By parents, for parents',
-    color: 'sage',
+    icon: Headphones,
+    title: '24/7 Support',
+    description: 'Here to help always',
+    color: 'bg-cream-200',
+    iconColor: 'text-cream-700',
   },
-]
+];
 
-const colorClasses = {
-  sage: {
-    bg: 'bg-sage-100',
-    icon: 'text-sage-600',
-    hover: 'group-hover:bg-sage-200',
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
   },
-  blush: {
-    bg: 'bg-blush-100',
-    icon: 'text-blush-500',
-    hover: 'group-hover:bg-blush-200',
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: 'easeOut',
+    },
   },
-  gold: {
-    bg: 'bg-gold-100',
-    icon: 'text-gold-600',
-    hover: 'group-hover:bg-gold-200',
-  },
-}
+};
 
 export default function TrustBadges() {
   return (
-    <section className="py-16 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+    <section className="py-16 sm:py-20 bg-white border-y border-sage-100">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
+        >
           {badges.map((badge, index) => {
-            const Icon = badge.icon
-            const colors = colorClasses[badge.color as keyof typeof colorClasses]
-
+            const Icon = badge.icon;
             return (
               <motion.div
-                key={badge.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group text-center"
+                key={index}
+                variants={itemVariants}
+                className="flex flex-col sm:flex-row items-center sm:items-start gap-4 text-center sm:text-left group"
               >
-                <div className={`trust-icon w-16 h-16 mx-auto mb-4 ${colors.bg} ${colors.hover} transition-colors`}>
-                  <Icon className={`w-7 h-7 ${colors.icon}`} />
+                <div className={`w-14 h-14 ${badge.color} rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                  <Icon className={`w-6 h-6 ${badge.iconColor}`} />
                 </div>
-                <h3 className="font-serif text-sm text-charcoal-800 mb-1">{badge.title}</h3>
-                <p className="font-sans text-xs text-charcoal-400">{badge.description}</p>
+                <div>
+                  <h3 className="font-serif font-semibold text-charcoal-900 mb-1">
+                    {badge.title}
+                  </h3>
+                  <p className="text-sm text-charcoal-500">
+                    {badge.description}
+                  </p>
+                </div>
               </motion.div>
-            )
+            );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
-  )
+  );
 }

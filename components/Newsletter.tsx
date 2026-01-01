@@ -1,131 +1,128 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Mail, Gift, ArrowRight, Check } from 'lucide-react'
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Send, Gift, Check } from 'lucide-react';
 
 export default function Newsletter() {
-  const [email, setEmail] = useState('')
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [email, setEmail] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (email) {
-      setIsSubmitted(true)
-      // Handle newsletter signup
+      setIsSubmitted(true);
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setEmail('');
+      }, 3000);
     }
-  }
+  };
 
   return (
-    <section className="py-20 bg-white relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-64 h-64 bg-sage-100/50 rounded-full -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-blush-100/30 rounded-full translate-x-1/2 translate-y-1/2" />
+    <section className="py-20 sm:py-28 bg-sage-100 relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-10 left-10 w-32 h-32 bg-sage-200/50 rounded-full blur-2xl" />
+        <div className="absolute bottom-10 right-10 w-40 h-40 bg-cream-200/50 rounded-full blur-2xl" />
+        <svg
+          className="absolute bottom-0 right-0 w-64 h-64 text-sage-200/30"
+          viewBox="0 0 200 200"
+          fill="currentColor"
+        >
+          <path d="M42.7,-62.9C53.9,-54.7,60.3,-40.6,65.2,-26.1C70.1,-11.6,73.5,3.3,71.1,17.5C68.7,31.7,60.5,45.2,48.8,54.8C37.1,64.4,21.8,70.2,5.5,72.4C-10.8,74.6,-28.1,73.2,-42.3,65.6C-56.5,58,-67.6,44.2,-73.4,28.4C-79.2,12.6,-79.7,-5.2,-74.5,-21.2C-69.3,-37.2,-58.4,-51.4,-44.7,-58.9C-31,-66.4,-14.5,-67.2,0.7,-68.1C15.9,-69,31.5,-71.1,42.7,-62.9Z" transform="translate(100 100)" />
+        </svg>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-br from-sage-50 to-cream-50 rounded-4xl p-8 lg:p-16 shadow-soft-lg">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Content */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-3xl mx-auto text-center">
+          {/* Gift Icon */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center justify-center w-16 h-16 bg-gold-200 rounded-2xl mb-6"
+          >
+            <Gift className="w-8 h-8 text-gold-600" />
+          </motion.div>
+
+          {/* Headline */}
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-serif font-semibold text-charcoal-900 mb-4"
+          >
+            Join Our <span className="font-script text-sage-600">Family</span>
+          </motion.h2>
+
+          {/* Subheadline */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg text-charcoal-600 mb-8 max-w-xl mx-auto"
+          >
+            Subscribe for exclusive offers, parenting tips, and 10% off your first order.
+          </motion.p>
+
+          {/* Form */}
+          <motion.form
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            onSubmit={handleSubmit}
+            className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+          >
+            <div className="flex-1 relative">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                className="w-full px-6 py-4 bg-white rounded-full text-charcoal-800 placeholder:text-charcoal-400 focus:outline-none focus:ring-2 focus:ring-sage-400 shadow-soft transition-all"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={isSubmitted}
+              className={`px-8 py-4 rounded-full font-medium flex items-center justify-center gap-2 transition-all duration-300 ${
+                isSubmitted
+                  ? 'bg-sage-500 text-white'
+                  : 'bg-charcoal-900 text-white hover:bg-charcoal-800 shadow-soft hover:shadow-soft-lg'
+              }`}
             >
-              <div className="inline-flex items-center space-x-2 bg-gold-100 px-4 py-2 rounded-full mb-6">
-                <Gift className="w-4 h-4 text-gold-600" />
-                <span className="text-sm font-sans text-gold-700">Exclusive Offer</span>
-              </div>
-
-              <h2 className="font-serif text-3xl lg:text-4xl text-charcoal-800 mb-4">
-                Join Our Family & Get
-                <span className="block text-sage-600 mt-2">15% Off Your First Order</span>
-              </h2>
-
-              <p className="font-sans text-charcoal-500 mb-6 max-w-md">
-                Subscribe to our newsletter for exclusive offers, parenting tips,
-                new arrivals, and a special discount on your first purchase.
-              </p>
-
-              <div className="flex flex-wrap gap-4 text-sm text-charcoal-600">
-                <div className="flex items-center space-x-2">
-                  <div className="w-5 h-5 bg-sage-200 rounded-full flex items-center justify-center">
-                    <Check className="w-3 h-3 text-sage-600" />
-                  </div>
-                  <span>Exclusive discounts</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-5 h-5 bg-sage-200 rounded-full flex items-center justify-center">
-                    <Check className="w-3 h-3 text-sage-600" />
-                  </div>
-                  <span>Early access</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-5 h-5 bg-sage-200 rounded-full flex items-center justify-center">
-                    <Check className="w-3 h-3 text-sage-600" />
-                  </div>
-                  <span>Parenting tips</span>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Form */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              {!isSubmitted ? (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="relative">
-                    <div className="absolute left-4 top-1/2 -translate-y-1/2">
-                      <Mail className="w-5 h-5 text-sage-400" />
-                    </div>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter your email address"
-                      className="w-full py-4 pl-12 pr-4 bg-white border border-sage-200 rounded-full font-sans text-charcoal-700 placeholder:text-charcoal-400 focus:outline-none focus:border-sage-400 input-glow transition-all"
-                      required
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="group w-full py-4 bg-sage-500 text-white font-sans font-medium rounded-full hover:bg-sage-600 transition-colors flex items-center justify-center space-x-2 btn-shine"
-                  >
-                    <span>Subscribe & Get 15% Off</span>
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </button>
-                  <p className="text-xs text-charcoal-400 text-center">
-                    By subscribing, you agree to our Privacy Policy. Unsubscribe anytime.
-                  </p>
-                </form>
+              {isSubmitted ? (
+                <>
+                  <Check className="w-5 h-5" />
+                  Subscribed!
+                </>
               ) : (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="text-center bg-white rounded-3xl p-8 shadow-soft"
-                >
-                  <div className="w-16 h-16 bg-sage-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Check className="w-8 h-8 text-sage-600" />
-                  </div>
-                  <h3 className="font-serif text-2xl text-charcoal-800 mb-2">
-                    Welcome to the Family!
-                  </h3>
-                  <p className="font-sans text-charcoal-500 mb-4">
-                    Check your inbox for your 15% discount code.
-                  </p>
-                  <p className="font-sans text-sm text-sage-600">
-                    Use code: <span className="font-semibold">WELCOME15</span>
-                  </p>
-                </motion.div>
+                <>
+                  Subscribe
+                  <Send className="w-4 h-4" />
+                </>
               )}
-            </motion.div>
-          </div>
+            </button>
+          </motion.form>
+
+          {/* Privacy note */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-sm text-charcoal-500 mt-4"
+          >
+            We respect your privacy. Unsubscribe anytime.
+          </motion.p>
         </div>
       </div>
     </section>
-  )
+  );
 }

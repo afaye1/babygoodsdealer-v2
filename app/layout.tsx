@@ -30,9 +30,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <meta name="theme-color" content="#b5c2a4" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="theme-color" content="#8BA888" />
       </head>
       <body className="antialiased">
         {children}

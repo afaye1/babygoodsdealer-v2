@@ -1,160 +1,169 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { Search, ShoppingBag, User, Menu, X, Heart } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
+import { Search, Heart, ShoppingBag, Menu, X, ChevronDown } from 'lucide-react';
 
-const navigation = [
-  { name: 'Home', href: '/' },
-  { name: 'Shop', href: '/products' },
+const navLinks = [
+  { name: 'Shop', href: '/shop', hasDropdown: true },
+  { name: 'Categories', href: '/categories', hasDropdown: true },
   { name: 'About', href: '/about' },
   { name: 'Contact', href: '/contact' },
-]
+];
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [cartCount] = useState(3);
+  const [wishlistCount] = useState(2);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-cream-50/95 backdrop-blur-md border-b border-sage-100">
-      {/* Top announcement bar */}
-      <div className="bg-sage-500 text-white text-center py-2 px-4">
-        <p className="text-xs font-sans tracking-wide">
-          Free shipping on orders over $75 | Premium quality guaranteed
-        </p>
-      </div>
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          isScrolled
+            ? 'bg-white/90 backdrop-blur-lg shadow-soft py-3'
+            : 'bg-transparent py-5'
+        }`}
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2 group">
+              <div className="w-10 h-10 bg-sage-400 rounded-full flex items-center justify-center">
+                <span className="text-white font-serif font-bold text-lg">B</span>
+              </div>
+              <div className="hidden sm:block">
+                <span className="text-xl font-serif font-semibold text-charcoal-900">
+                  Baby
+                </span>
+                <span className="text-xl font-script text-sage-400 ml-1">
+                  Goods
+                </span>
+              </div>
+            </Link>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Mobile menu button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden p-2 -ml-2 text-charcoal-700 hover:text-sage-600 transition-colors"
-          >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-8">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="group flex items-center gap-1 text-charcoal-700 hover:text-sage-600 transition-colors font-medium"
+                >
+                  {link.name}
+                  {link.hasDropdown && (
+                    <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform duration-300" />
+                  )}
+                </Link>
+              ))}
+            </nav>
 
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="font-script text-3xl text-sage-600">Baby</span>
-            <span className="font-serif text-2xl text-charcoal-800 tracking-wide">Goods Dealer</span>
-          </Link>
+            {/* Right Actions */}
+            <div className="flex items-center gap-3 sm:gap-4">
+              {/* Search */}
+              <button className="p-2 hover:bg-sage-50 rounded-full transition-colors group">
+                <Search className="w-5 h-5 text-charcoal-600 group-hover:text-sage-600 transition-colors" />
+              </button>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-10">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="font-sans text-sm text-charcoal-600 hover:text-sage-600 transition-colors flowing-underline"
-              >
-                {item.name}
+              {/* Wishlist */}
+              <Link href="/wishlist" className="relative p-2 hover:bg-blush-50 rounded-full transition-colors group">
+                <Heart className="w-5 h-5 text-charcoal-600 group-hover:text-blush-500 transition-colors" />
+                {wishlistCount > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-blush-400 text-white text-2xs font-medium rounded-full flex items-center justify-center">
+                    {wishlistCount}
+                  </span>
+                )}
               </Link>
-            ))}
-          </nav>
 
-          {/* Actions */}
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className="p-2 text-charcoal-600 hover:text-sage-600 transition-colors"
-            >
-              <Search className="w-5 h-5" />
-            </button>
-            <Link
-              href="/wishlist"
-              className="p-2 text-charcoal-600 hover:text-blush-500 transition-colors hidden sm:block"
-            >
-              <Heart className="w-5 h-5" />
-            </Link>
-            <Link
-              href="/account"
-              className="p-2 text-charcoal-600 hover:text-sage-600 transition-colors hidden sm:block"
-            >
-              <User className="w-5 h-5" />
-            </Link>
-            <Link
-              href="/cart"
-              className="relative p-2 text-charcoal-600 hover:text-sage-600 transition-colors"
-            >
-              <ShoppingBag className="w-5 h-5" />
-              <span className="absolute -top-1 -right-1 w-5 h-5 bg-gold-500 text-white text-2xs font-bold rounded-full flex items-center justify-center">
-                3
-              </span>
-            </Link>
+              {/* Cart */}
+              <Link href="/cart" className="relative p-2 hover:bg-sage-50 rounded-full transition-colors group">
+                <ShoppingBag className="w-5 h-5 text-charcoal-600 group-hover:text-sage-600 transition-colors" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-sage-500 text-white text-2xs font-medium rounded-full flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="lg:hidden p-2 hover:bg-sage-50 rounded-full transition-colors"
+              >
+                {isMobileMenuOpen ? (
+                  <X className="w-6 h-6 text-charcoal-700" />
+                ) : (
+                  <Menu className="w-6 h-6 text-charcoal-700" />
+                )}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* Search overlay */}
+      {/* Mobile Menu */}
       <AnimatePresence>
-        {isSearchOpen && (
+        {isMobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 right-0 bg-white shadow-soft-lg p-6"
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-40 lg:hidden"
           >
-            <div className="max-w-2xl mx-auto">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search for products..."
-                  className="w-full py-4 px-6 pr-12 text-lg font-sans bg-cream-50 border border-sage-200 rounded-full focus:outline-none focus:border-sage-400 input-glow transition-all"
-                />
-                <Search className="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-sage-400" />
-              </div>
-              <div className="mt-4 flex flex-wrap gap-2">
-                <span className="text-xs text-charcoal-500">Popular:</span>
-                {['Organic blankets', 'Wooden toys', 'Nursery decor', 'Gift sets'].map((term) => (
-                  <button
-                    key={term}
-                    className="text-xs text-sage-600 hover:text-sage-700 px-3 py-1 bg-sage-50 rounded-full transition-colors"
-                  >
-                    {term}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <div className="absolute inset-0 bg-charcoal-900/50" onClick={() => setIsMobileMenuOpen(false)} />
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="absolute top-0 right-0 bottom-0 w-80 bg-white shadow-soft-xl"
+            >
+              <div className="pt-24 px-6">
+                <nav className="space-y-1">
+                  {navLinks.map((link, index) => (
+                    <motion.div
+                      key={link.name}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                    >
+                      <Link
+                        href={link.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="flex items-center justify-between py-4 text-lg font-medium text-charcoal-800 hover:text-sage-600 transition-colors border-b border-sage-100"
+                      >
+                        {link.name}
+                        {link.hasDropdown && <ChevronDown className="w-5 h-5" />}
+                      </Link>
+                    </motion.div>
+                  ))}
+                </nav>
 
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-white border-t border-sage-100"
-          >
-            <nav className="flex flex-col py-4">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="px-6 py-3 font-sans text-charcoal-700 hover:bg-sage-50 hover:text-sage-600 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              <div className="border-t border-sage-100 mt-4 pt-4 px-6 space-y-3">
-                <Link href="/account" className="flex items-center space-x-3 text-charcoal-600">
-                  <User className="w-5 h-5" />
-                  <span>My Account</span>
-                </Link>
-                <Link href="/wishlist" className="flex items-center space-x-3 text-charcoal-600">
-                  <Heart className="w-5 h-5" />
-                  <span>Wishlist</span>
-                </Link>
+                <div className="mt-8 pt-8 border-t border-sage-100">
+                  <Link
+                    href="/shop"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block w-full py-4 bg-charcoal-900 text-white text-center rounded-full font-medium hover:bg-charcoal-800 transition-colors"
+                  >
+                    Shop Now
+                  </Link>
+                </div>
               </div>
-            </nav>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
-  )
+    </>
+  );
 }

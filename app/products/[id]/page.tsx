@@ -6,6 +6,7 @@ import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import BestSellers from '@/components/BestSellers'
+import { useCart } from '@/contexts/CartContext'
 import {
   Heart,
   ShoppingBag,
@@ -72,9 +73,32 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
   const [quantity, setQuantity] = useState(1)
   const [activeTab, setActiveTab] = useState('Description')
   const [isWishlisted, setIsWishlisted] = useState(false)
+  const [isAdded, setIsAdded] = useState(false)
+
+  const { addItem } = useCart()
 
   const incrementQuantity = () => setQuantity((prev) => prev + 1)
   const decrementQuantity = () => setQuantity((prev) => Math.max(1, prev - 1))
+
+  const handleAddToCart = () => {
+    if (!product.inStock) return
+
+    // Add item(s) to cart based on quantity
+    for (let i = 0; i < quantity; i++) {
+      addItem({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        originalPrice: product.originalPrice,
+        image: product.images[0],
+        category: product.category,
+        color: selectedColor.name,
+      })
+    }
+
+    setIsAdded(true)
+    setTimeout(() => setIsAdded(false), 2000)
+  }
 
   return (
     <>
@@ -251,10 +275,30 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                 </div>
 
                 {/* Add to Cart Button */}
-                <button className="flex-1 flex items-center justify-center space-x-3 py-4 bg-sage-500 text-white font-sans font-medium rounded-full hover:bg-sage-600 transition-colors shadow-soft-lg btn-shine">
-                  <ShoppingBag className="w-5 h-5" />
-                  <span>Add to Cart - ${product.price * quantity}</span>
-                </button>
+                <motion.button
+                  onClick={handleAddToCart}
+                  disabled={!product.inStock}
+                  whileTap={{ scale: 0.95 }}
+                  className={`flex-1 flex items-center justify-center space-x-3 py-4 font-sans font-medium rounded-full transition-all shadow-soft-lg btn-shine ${
+                    isAdded
+                      ? 'bg-sage-600 text-white'
+                      : product.inStock
+                        ? 'bg-sage-500 text-white hover:bg-sage-600'
+                        : 'bg-charcoal-200 text-charcoal-400 cursor-not-allowed'
+                  }`}
+                >
+                  {isAdded ? (
+                    <>
+                      <Check className="w-5 h-5" />
+                      <span>Added to Cart!</span>
+                    </>
+                  ) : (
+                    <>
+                      <ShoppingBag className="w-5 h-5" />
+                      <span>Add to Cart - ${product.price * quantity}</span>
+                    </>
+                  )}
+                </motion.button>
 
                 {/* Wishlist Button */}
                 <button

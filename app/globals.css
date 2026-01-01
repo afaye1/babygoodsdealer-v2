@@ -1,0 +1,305 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Dancing+Script:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-cormorant: 'Cormorant Garamond', Georgia, serif;
+  --font-dm-sans: 'DM Sans', system-ui, sans-serif;
+  --font-dancing-script: 'Dancing Script', cursive;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-dm-sans);
+  background-color: #fffdf9;
+  color: #2a2a2a;
+  overflow-x: hidden;
+}
+
+/* Elegant selection color */
+::selection {
+  background-color: rgba(181, 194, 164, 0.4);
+  color: #2a2a2a;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fef9f0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #b5c2a4 0%, #93a67d 100%);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #93a67d 0%, #768b5f 100%);
+}
+
+/* Smooth image loading */
+img {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+img[data-loading="true"] {
+  opacity: 0;
+}
+
+/* Organic shapes */
+.organic-blob {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: morph 8s ease-in-out infinite;
+}
+
+@keyframes morph {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  50% { border-radius: 50% 60% 40% 60% / 40% 50% 60% 50%; }
+  75% { border-radius: 40% 50% 60% 40% / 60% 40% 50% 60%; }
+}
+
+/* Grain overlay */
+.grain-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Gold shimmer effect */
+.gold-shimmer {
+  background: linear-gradient(
+    90deg,
+    #e4a63a 0%,
+    #f2d68f 25%,
+    #e4a63a 50%,
+    #f2d68f 75%,
+    #e4a63a 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Flowing underline */
+.flowing-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.flowing-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #b5c2a4, #93a67d, #b5c2a4, transparent);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.flowing-underline:hover::after {
+  transform: scaleX(1);
+}
+
+/* Soft focus ring */
+.soft-focus:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(181, 194, 164, 0.4);
+}
+
+/* Card hover lift */
+.card-lift {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Staggered animation delays */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+
+/* Hero text gradient */
+.hero-gradient {
+  background: linear-gradient(135deg, #2a2a2a 0%, #434343 50%, #2a2a2a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Decorative line */
+.decorative-line {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, #e4a63a, #f2d68f);
+  border-radius: 2px;
+}
+
+/* Soft image treatment */
+.image-soft {
+  filter: saturate(0.95) brightness(1.02);
+}
+
+/* Button shine effect */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shine::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.btn-shine:hover::before {
+  left: 100%;
+}
+
+/* Category card organic border */
+.organic-border {
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  transition: border-radius 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.organic-border:hover {
+  border-radius: 50%;
+}
+
+/* Testimonial quotes */
+.quote-mark {
+  font-family: var(--font-cormorant);
+  font-size: 6rem;
+  line-height: 1;
+  color: rgba(181, 194, 164, 0.3);
+}
+
+/* Newsletter input glow */
+.input-glow:focus {
+  box-shadow: 0 0 20px rgba(181, 194, 164, 0.3);
+}
+
+/* Product badge */
+.product-badge {
+  background: linear-gradient(135deg, #e4a63a 0%, #f2d68f 100%);
+  color: white;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+}
+
+/* Animated background circles */
+@keyframes pulse-slow {
+  0%, 100% { transform: scale(1); opacity: 0.1; }
+  50% { transform: scale(1.1); opacity: 0.15; }
+}
+
+.bg-circle {
+  animation: pulse-slow 8s ease-in-out infinite;
+}
+
+.bg-circle-delayed {
+  animation: pulse-slow 8s ease-in-out 4s infinite;
+}
+
+/* Mobile menu transitions */
+.mobile-menu-enter {
+  transform: translateX(100%);
+}
+
+.mobile-menu-enter-active {
+  transform: translateX(0);
+  transition: transform 0.3s ease-out;
+}
+
+.mobile-menu-exit {
+  transform: translateX(0);
+}
+
+.mobile-menu-exit-active {
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in;
+}
+
+/* Trust badge icon container */
+.trust-icon {
+  background: linear-gradient(135deg, #f6f7f4 0%, #e8ebe3 100%);
+  border-radius: 50%;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Category hover overlay */
+.category-overlay {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(42, 42, 42, 0.1) 50%,
+    rgba(42, 42, 42, 0.6) 100%
+  );
+}
+
+/* Subtle pattern background */
+.pattern-dots {
+  background-image: radial-gradient(circle, #d4dbc9 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Footer wave */
+.footer-wave {
+  position: absolute;
+  top: -50px;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: linear-gradient(to bottom right, transparent 49%, #f6f7f4 50%);
+}

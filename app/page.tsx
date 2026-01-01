@@ -4,7 +4,7 @@ import { Header, Hero, TrustBadges, CategoryGrid, BestSellers, Testimonials, New
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-cream-50">
+    <main id="main-content" className="min-h-screen bg-cream-50">
       <Header />
       <Hero />
       <TrustBadges />

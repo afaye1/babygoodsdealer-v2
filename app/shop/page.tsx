@@ -70,7 +70,7 @@ export default function ShopPage() {
     <>
       <Header />
 
-      <main className="pt-[120px] bg-cream-50 min-h-screen">
+      <main id="main-content" className="pt-[120px] bg-cream-50 min-h-screen">
         {/* Hero Banner */}
         <section className="relative overflow-hidden bg-gradient-to-br from-sage-100 via-cream-100 to-blush-100">
           <div className="absolute inset-0 opacity-30">

@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { Heart, ShoppingBag, Star, Eye } from 'lucide-react'
+import { Heart, ShoppingBag, Star, Eye, Check } from 'lucide-react'
+import { useCart } from '@/contexts/CartContext'
 
 interface Product {
   id: string
@@ -27,6 +28,30 @@ interface ProductCardProps {
 export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false)
   const [isWishlisted, setIsWishlisted] = useState(false)
+  const [selectedColor, setSelectedColor] = useState<string | undefined>(product.colors?.[0])
+  const [isAdded, setIsAdded] = useState(false)
+  const { addItem } = useCart()
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    if (product.inStock === false) return
+
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      image: product.image,
+      category: product.category,
+      color: selectedColor,
+    })
+
+    // Show added feedback
+    setIsAdded(true)
+    setTimeout(() => setIsAdded(false), 1500)
+  }
 
   return (
     <motion.div
@@ -91,6 +116,8 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                     ? 'bg-blush-500 text-white'
                     : 'bg-white text-charcoal-500 hover:text-blush-500'
                 }`}
+                aria-label={isWishlisted ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
+                aria-pressed={isWishlisted}
               >
                 <Heart className={`w-5 h-5 ${isWishlisted ? 'fill-current' : ''}`} />
               </motion.button>
@@ -102,6 +129,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                 }}
                 transition={{ delay: 0.05 }}
                 className="w-10 h-10 bg-white rounded-full shadow-soft flex items-center justify-center text-charcoal-500 hover:text-sage-600 transition-colors"
+                aria-label={`Quick view ${product.name}`}
               >
                 <Eye className="w-5 h-5" />
               </motion.button>
@@ -117,11 +145,25 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
               className="absolute bottom-4 left-4 right-4"
             >
               <button
-                className="w-full py-3 bg-charcoal-800 text-white font-sans text-sm rounded-full hover:bg-charcoal-900 transition-colors flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={handleAddToCart}
+                className={`w-full py-3 font-sans text-sm rounded-full transition-all flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed ${
+                  isAdded
+                    ? 'bg-sage-500 text-white'
+                    : 'bg-charcoal-800 text-white hover:bg-charcoal-900'
+                }`}
                 disabled={product.inStock === false}
               >
-                <ShoppingBag className="w-4 h-4" />
-                <span>Add to Cart</span>
+                {isAdded ? (
+                  <>
+                    <Check className="w-4 h-4" />
+                    <span>Added!</span>
+                  </>
+                ) : (
+                  <>
+                    <ShoppingBag className="w-4 h-4" />
+                    <span>Add to Cart</span>
+                  </>
+                )}
               </button>
             </motion.div>
           </div>
@@ -169,8 +211,14 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
             {product.colors.map((color, i) => (
               <button
                 key={i}
-                className="w-5 h-5 rounded-full border border-sage-200 hover:scale-110 transition-transform"
+                onClick={() => setSelectedColor(color)}
+                className={`w-5 h-5 rounded-full border-2 hover:scale-110 transition-all ${
+                  selectedColor === color
+                    ? 'border-sage-500 ring-2 ring-sage-200'
+                    : 'border-sage-200'
+                }`}
                 style={{ backgroundColor: color }}
+                aria-label={`Select color ${i + 1}`}
               />
             ))}
           </div>

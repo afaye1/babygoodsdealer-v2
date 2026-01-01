@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { Search, Heart, ShoppingBag, Menu, X, ChevronDown } from 'lucide-react';
+import { useCart } from '@/contexts/CartContext';
 
 const navLinks = [
   { name: 'Shop', href: '/shop', hasDropdown: true },
@@ -15,8 +16,8 @@ const navLinks = [
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [cartCount] = useState(3);
-  const [wishlistCount] = useState(2);
+  const [wishlistCount] = useState(0);
+  const { itemCount, toggleCart } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -86,14 +87,22 @@ export default function Header() {
               </Link>
 
               {/* Cart */}
-              <Link href="/cart" className="relative p-2 hover:bg-sage-50 rounded-full transition-colors group">
+              <button
+                onClick={toggleCart}
+                className="relative p-2 hover:bg-sage-50 rounded-full transition-colors group"
+                aria-label="Open cart"
+              >
                 <ShoppingBag className="w-5 h-5 text-charcoal-600 group-hover:text-sage-600 transition-colors" />
-                {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-sage-500 text-white text-2xs font-medium rounded-full flex items-center justify-center">
-                    {cartCount}
-                  </span>
+                {itemCount > 0 && (
+                  <motion.span
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="absolute -top-1 -right-1 w-5 h-5 bg-sage-500 text-white text-2xs font-medium rounded-full flex items-center justify-center"
+                  >
+                    {itemCount}
+                  </motion.span>
                 )}
-              </Link>
+              </button>
 
               {/* Mobile Menu Button */}
               <button
